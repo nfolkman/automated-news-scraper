@@ -41,12 +41,12 @@ async function scraper(){
       return list
    })
 
-   dataObj = {data}
-   console.log(dataObj)
+   dataObj = data
+   console.log(data)
 
    await browser.close()
 
-   return dataObj
+   return data
 }
 
 module.exports = scraper

@@ -10,12 +10,12 @@ mongoose.connect(MONGO_URI,{
 
 
    // pass data from scraper into model
-   const resultAnalysisAndSave = dataObj => {
+   const resultAnalysisAndSave = data => {
       try{
          const Articles = require('./models/Articles')
-         const titleQuery = dataObj.title
+         const titleQuery = data.title
             // a block-scope problem with dataObj? \/
-         const updatingData = $set:{title:dataObj.title, summary:dataObj.summary, source:dataObj.source, date:dataObj.date}
+         const updatingData = $set:{title:data.title, summary:data.summary, source:data.source, date:data.date}
 
          return Articles.findOneAndUpdate(titleQuery,updatingData, { upsert: true})
 
