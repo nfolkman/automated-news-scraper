@@ -14,22 +14,22 @@ mongoose.connect(MONGO_URI,{
       try{
          const Articles = require('./models/Articles')
          const titleQuery = data.title
-            // a block-scope problem with dataObj? \/
-         const updatingData = $set:{title:data.title, summary:data.summary, source:data.source, date:data.date}
+         
+         const updatingData = {$set: { title:data.title, summary:data.summary, source:data.source, date:data.date} }
 
-         return Articles.findOneAndUpdate(titleQuery,updatingData, { upsert: true})
+         
+         // this does nothing ||  I want to replace/update ALL existing docs in DB
+         //                   \/
+         // return Articles.findOneAndUpdate(titleQuery,updatingData, { upsert: true})
+
+
+
+         // this adds more documents to the DB, on top of the ones that are already there
+         return Articles.create(data)
 
 
          // /*** HOW TO BUILD CONDITIONALS TO UPDATE/REPLACE ALL DOCUMENTS IN DB IF DOC COUNT IS GREATER THAN 0? ***/
          
-         //    let cleanSlate = Articles.create(dataObj.data)
-
-         //    // let update = Articles.findOneAndUpdate(dataObj.data)
-         //    // let update = Articles.updateMany({}, { $set: {dataObj}}).save()
-         //    // let update = Articles.replaceOne({}, {dataObj})
-
-         //    if(!Articles.count()) return cleanSlate
-         //     else return update
 
              
 
