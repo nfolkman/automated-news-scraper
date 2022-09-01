@@ -4,7 +4,7 @@ const { MONGO_URI } = db
 const mongoose = require('mongoose')
 
 mongoose.connect(MONGO_URI,{
-   useNewUrlPArser: true})
+   useNewUrlParser: true})
    .then(()=> console.log('MongoDB Connected'))
    .catch(err => console.log(err))
 
@@ -13,19 +13,19 @@ mongoose.connect(MONGO_URI,{
    const resultAnalysisAndSave = data => {
       try{
          const Articles = require('./models/Articles')
-         const titleQuery = data.title
+         const titleQuery = {title:data.title}
          
-         const updatingData = {$set: { title:data.title, summary:data.summary, source:data.source, date:data.date} }
+         // const updatingData = {title:data.title, summary:data.summary, source:data.source, date:data.date}
 
          
          // this does nothing ||  I want to replace/update ALL existing docs in DB
          //                   \/
-         // return Articles.findOneAndUpdate(titleQuery,updatingData, { upsert: true})
+        return Articles.updateMany({},{title:data.title, summary:data.summary, source:data.source, date:data.date})
 
 
 
          // this adds more documents to the DB, on top of the ones that are already there
-         return Articles.create(data)
+         // return Articles.create(data)
 
 
          // /*** HOW TO BUILD CONDITIONALS TO UPDATE/REPLACE ALL DOCUMENTS IN DB IF DOC COUNT IS GREATER THAN 0? ***/
